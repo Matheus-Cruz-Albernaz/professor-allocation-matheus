@@ -10,6 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -19,20 +21,33 @@ public class Allocation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private DayOfWeek day;
+	
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date start;
+	
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date end;
-	@Column(nullable = false)
+	
+	@Column(nullable = false, name = "Course_id")
 	private Long courseId;
-	@Column(nullable = false)
+	
+	@Column(nullable = false, name = "Professor_id")
 	private Long professorId;
-
+	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "Course_id", updatable = false, insertable = false, nullable = false)
+	private Course course;
+	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "Professor_id", updatable = false, insertable = false, nullable = false)
+	private Professor pro;
+	
 	public Long getId() {
 		return id;
 	}
