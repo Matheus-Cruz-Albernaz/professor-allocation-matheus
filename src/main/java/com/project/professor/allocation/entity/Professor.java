@@ -59,4 +59,12 @@ public class Professor {
 	public void setDepartmentId(Long departmentId) {
 		this.departmentId = departmentId;
 	}
+
+	public Department getDepart() {
+		return depart;
+	}
+
+	public void setDepart(Department depart) {
+		this.depart = depart;
+	}
 }

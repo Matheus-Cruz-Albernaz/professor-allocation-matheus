@@ -95,4 +95,20 @@ public class Allocation {
 	public void setProfessorId(Long professorId) {
 		this.professorId = professorId;
 	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+	public Professor getPro() {
+		return pro;
+	}
+
+	public void setPro(Professor pro) {
+		this.pro = pro;
+	}
 }
