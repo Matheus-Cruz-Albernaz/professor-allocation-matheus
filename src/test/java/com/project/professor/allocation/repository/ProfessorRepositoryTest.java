@@ -1,6 +1,8 @@
 package com.project.professor.allocation.repository;
 
 import java.text.ParseException;
+import java.time.DayOfWeek;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
+
+import com.project.professor.allocation.entity.Allocation;
+import com.project.professor.allocation.entity.Professor;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
@@ -22,9 +27,10 @@ public class ProfessorRepositoryTest {
 	@Test
 	public void findAll() {
 		// Act
+		List<Professor> prof = professorRepository.findAll();
 
 		// Print
-
+		System.out.println(prof);
 	}
 
 	@Test
@@ -60,10 +66,16 @@ public class ProfessorRepositoryTest {
 	@Test
 	public void save_create() throws ParseException {
 		// Arrange
-
+		Professor professor = new Professor();
+		professor.setCpf("96573561203");
+		professor.setDepartmentId(1L);
+		professor.setName("Rafael Duarte");
+		
 		// Act
+		Professor prof = professorRepository.save(professor);
 
 		// Print
+		System.out.println(prof);
 
 	}
 

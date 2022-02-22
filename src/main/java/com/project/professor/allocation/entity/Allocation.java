@@ -111,4 +111,12 @@ public class Allocation {
 	public void setPro(Professor pro) {
 		this.pro = pro;
 	}
+
+	@Override
+	public String toString() {
+		return "Allocation [id=" + id + ", day=" + day + ", start=" + start + ", end=" + end + ", courseId=" + courseId
+				+ ", professorId=" + professorId + ", course=" + course + ", pro=" + pro + "]";
+	}
+	
+	
 }

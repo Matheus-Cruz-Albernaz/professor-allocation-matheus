@@ -1,6 +1,9 @@
 package com.project.professor.allocation.repository;
 
 import com.project.professor.allocation.entity.Allocation;
+
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -13,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.util.List;
+import java.util.Optional;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
@@ -28,18 +32,23 @@ public class AllocationRepositoryTest {
 	@Test
 	public void findAll() {
 		// Act
+		List <Allocation> alloc = allocationRepository.findAll();
 
 		// Print
-
+		System.out.println(alloc);
 	}
 
 	@Test
 	public void findById() {
 		// Arrange
+		
 
 		// Act
+		Optional <Allocation> optional = allocationRepository.findById(20L);
 
 		// Print
+		Allocation alloc = optional.orElse(null);
+		System.out.println(alloc);		
 
 	}
 
@@ -66,20 +75,37 @@ public class AllocationRepositoryTest {
 	@Test
 	public void save_create() throws ParseException {
 		// Arrange
+		Allocation allocation = new Allocation();
+		allocation.setDay(DayOfWeek.MONDAY);
+		allocation.setCourseId(1L);
+		allocation.setProfessorId(1L);
+		allocation.setStart(sdf.parse("10:00-0300"));
+		allocation.setEnd(sdf.parse("13:00-0300"));
 
 		// Act
+		Allocation alloc = allocationRepository.save(allocation);
 
 		// Print
+		System.out.println(alloc);
 
 	}
 
 	@Test
 	public void save_update() throws ParseException {
 		// Arrange
+		Allocation allocation = new Allocation();
+		allocation.setId(1L);
+		allocation.setDay(DayOfWeek.FRIDAY);
+		allocation.setCourseId(1L);
+		allocation.setProfessorId(1L);
+		allocation.setStart(sdf.parse("10:00-0300"));
+		allocation.setEnd(sdf.parse("13:00-0300"));
 
 		// Act
+		Allocation alloc = allocationRepository.save(allocation);
 
 		// Print
+		System.out.println(alloc);
 
 	}
 
@@ -88,12 +114,13 @@ public class AllocationRepositoryTest {
 		// Arrange
 
 		// Act
+		allocationRepository.deleteById(2L);
 
 	}
 
 	@Test
 	public void deleteAll() {
 		// Act
-
+		allocationRepository.deleteAll();
 	}
 }
