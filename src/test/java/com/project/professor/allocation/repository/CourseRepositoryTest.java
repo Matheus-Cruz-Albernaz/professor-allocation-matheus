@@ -3,6 +3,7 @@ package com.project.professor.allocation.repository;
 import java.text.ParseException;
 import java.time.DayOfWeek;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 
+import com.project.professor.allocation.entity.Allocation;
 import com.project.professor.allocation.entity.Course;
 
 @DataJpaTest
@@ -38,8 +40,11 @@ public class CourseRepositoryTest {
 		// Arrange
 
 		// Act
+		Optional<Course> optional = courseRepository.findById(2L);
 
 		// Print
+		Course course = optional.orElse(null);
+		System.out.println(course);
 
 	}
 
@@ -96,12 +101,14 @@ public class CourseRepositoryTest {
 		// Arrange
 
 		// Act
+		courseRepository.deleteById(2L);
 
 	}
 
 	@Test
 	public void deleteAll() {
 		// Act
+		courseRepository.deleteAll();
 
 	}
 }

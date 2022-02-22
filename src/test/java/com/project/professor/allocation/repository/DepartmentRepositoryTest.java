@@ -3,6 +3,7 @@ package com.project.professor.allocation.repository;
 import java.text.ParseException;
 import java.time.DayOfWeek;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,11 @@ public class DepartmentRepositoryTest {
 		// Arrange
 
 		// Act
+		Optional<Department> optional = departmentRepository.findById(2L);
 
 		// Print
+		Department dep = optional.orElse(null);
+		System.out.println(dep);
 
 	}
 
@@ -97,12 +101,14 @@ public class DepartmentRepositoryTest {
 		// Arrange
 
 		// Act
+		departmentRepository.deleteById(2L);
 
 	}
 
 	@Test
 	public void deleteAll() {
 		// Act
+		departmentRepository.deleteAll();
 
 	}
 }
