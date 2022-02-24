@@ -39,8 +39,7 @@ public class AllocationService {
 	public Allocation create(Allocation allocation) {
 
 		allocation.setId(null);
-		Allocation allocationNew = allocationRepository.save(allocation);
-		return allocationNew;
+		return saveInternal(allocation);
 
 	}
 
@@ -49,12 +48,22 @@ public class AllocationService {
 
 		Long id = allocation.getId();
 		if (id != null && allocationRepository.existsById(id)) {
-			Allocation allocationNew = allocationRepository.save(allocation);
-			return allocationNew;
+			return saveInternal(allocation);
 		} else {
 			return null;
 		}
 
+	}
+	
+	private Allocation saveInternal(Allocation allocation) {
+		
+		if (hasCollision(allocation)) {
+			throw new RuntimeException();
+		} else {
+		Allocation allocationNew = allocationRepository.save(allocation);
+		return allocationNew;
+		}
+		
 	}
 
 	// CRUD Deletar pelo Id
@@ -70,5 +79,27 @@ public class AllocationService {
 		
 		allocationRepository.deleteAllInBatch();
 		
+	}
+	
+	boolean hasCollision(Allocation newAllocation) {
+		boolean hasCollision = false;
+
+		List<Allocation> currentAllocations = allocationRepository.findByProfessorId(newAllocation.getProfessorId());
+
+		for (Allocation currentAllocation : currentAllocations) {
+			hasCollision = hasCollision(currentAllocation, newAllocation);
+			if (hasCollision) {
+				break;
+			}
+		}
+
+		return hasCollision;
+	}
+
+	private boolean hasCollision(Allocation currentAllocation, Allocation newAllocation) {
+		return !currentAllocation.getId().equals(newAllocation.getId())
+				&& currentAllocation.getDay() == newAllocation.getDay()
+				&& currentAllocation.getStart().compareTo(newAllocation.getEnd()) < 0
+				&& newAllocation.getStart().compareTo(currentAllocation.getEnd()) < 0;
 	}
 }

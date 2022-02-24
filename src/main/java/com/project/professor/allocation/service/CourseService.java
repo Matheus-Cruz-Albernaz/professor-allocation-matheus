@@ -39,8 +39,7 @@ public class CourseService {
 	public Course create(Course course) {
 
 		course.setId(null);
-		Course courseNew = courseRepository.save(course);
-		return courseNew;
+		return saveInternal(course);
 
 	}
 
@@ -49,11 +48,17 @@ public class CourseService {
 
 		Long id = course.getId();
 		if (id != null && courseRepository.existsById(id)) {
-			Course courseNew = courseRepository.save(course);
-			return courseNew;
+			return saveInternal(course);
 		} else {
 			return null;
 		}
+
+	}
+
+	private Course saveInternal(Course course) {
+
+		Course courseNew = courseRepository.save(course);
+		return courseNew;
 
 	}
 

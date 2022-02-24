@@ -1,6 +1,6 @@
 package com.project.professor.allocation.service;
 
-import java.util.List;
+import java.util.List; 
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -39,8 +39,7 @@ public class DepartmentService {
 	public Department create(Department department) {
 
 		department.setId(null);
-		Department depNew = departmentRepository.save(department);
-		return depNew;
+		return saveInternal(department);
 
 	}
 
@@ -49,11 +48,17 @@ public class DepartmentService {
 
 		Long id = department.getId();
 		if (id != null && departmentRepository.existsById(id)) {
-			Department depNew = departmentRepository.save(department);
-			return depNew;
+			return saveInternal(department);
 		} else {
 			return null;
 		}
+
+	}
+
+	private Department saveInternal(Department department) {
+
+		Department depNew = departmentRepository.save(department);
+		return depNew;
 
 	}
 
