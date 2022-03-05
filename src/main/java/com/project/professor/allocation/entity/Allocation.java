@@ -16,10 +16,19 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
+import com.fasterxml.jackson.databind.ser.std.DateSerializer;
+
 @Entity
 @Table(name = "Alocação")
 public class Allocation {
 	
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -28,24 +37,36 @@ public class Allocation {
 	@Column(name = "Dia", nullable = false)
 	private DayOfWeek day;
 	
+	@JsonFormat(pattern = "HH:mmZ")
+	@JsonSerialize(using = DateSerializer.class)
+	@JsonDeserialize(using = DateDeserializers.DateDeserializer.class)
 	@Column(name = "Início", nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date start;
 	
+	@JsonFormat(pattern = "HH:mmZ")
+	@JsonSerialize(using = DateSerializer.class)
+	@JsonDeserialize(using = DateDeserializers.DateDeserializer.class)
 	@Column(name = "Término", nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date end;
 	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(nullable = false, name = "Course_id")
 	private Long courseId;
 	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(nullable = false, name = "Professor_id")
 	private Long professorId;
 	
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonIgnoreProperties({"allocations"})
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "Course_id", updatable = false, insertable = false, nullable = false)
 	private Course course;
 	
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonIgnoreProperties({"allocations"})
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "Professor_id", updatable = false, insertable = false, nullable = false)
 	private Professor pro;
