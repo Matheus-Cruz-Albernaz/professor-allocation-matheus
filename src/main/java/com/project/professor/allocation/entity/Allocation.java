@@ -24,15 +24,15 @@ public class Allocation {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
+	@Column(name = "Dia", nullable = false)
 	private DayOfWeek day;
 	
-	@Column(nullable = false)
+	@Column(name = "Início", nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date start;
 	
-	@Column(nullable = false)
+	@Column(name = "Término", nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date end;
 	
@@ -116,9 +116,13 @@ public class Allocation {
 
 	@Override
 	public String toString() {
-		return "Allocation [id=" + id + ", day=" + day + ", start=" + start + ", end=" + end + ", courseId=" + courseId
-				+ ", professorId=" + professorId + ", course=" + course + ", pro=" + pro + "]";
-	}
-	
-	
+		return "Allocation [id=" + id + ","
+						   + "day=" + day + ","
+						   + "start=" + start + ","
+						   + "end=" + end + ","
+						   + "courseId=" + courseId
+						   + ", professorId=" + professorId + ","
+						   + "course=" + course + ""
+						   + "professor=" + pro + "]";
+	}	
 }
