@@ -1,9 +1,7 @@
 package com.project.professor.allocation.repository;
 
-import java.text.ParseException;
-import java.time.DayOfWeek;
+import java.text.ParseException; 
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +11,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 
-import com.project.professor.allocation.entity.Allocation;
-import com.project.professor.allocation.entity.Course;
 import com.project.professor.allocation.entity.Professor;
 
 @DataJpaTest
@@ -32,41 +28,45 @@ public class ProfessorRepositoryTest {
 		List<Professor> prof = professorRepository.findAll();
 
 		// Print
-		System.out.println(prof);
+		prof.forEach(System.out::println);
 	}
 
 	@Test
 	public void findById() {
 		// Arrange
+		Long id = 1L;
 
 		// Act
-		Optional<Professor> optional = professorRepository.findById(2L);
+		Professor prof = professorRepository.findById(id).orElse(null);
 
 		// Print
-		Professor prof = optional.orElse(null);
 		System.out.println(prof);
 
 	}
+	
+	@Test
+    public void findByNameContainingIgnoreCase() {
+        // Arrange
+        String name = "Professor";
+
+        // Act
+        List<Professor> professors = professorRepository.findByNameContainingIgnoreCase(name);
+
+        // Print
+        professors.forEach(System.out::println);
+    }
 
 	@Test
-	public void findByProfessorId() {
-		// Arrange
+    public void findByDepartmentId() {
+        // Arrange
+        Long departmentId = 1L;
 
-		// Act
+        // Act
+        List<Professor> professors = professorRepository.findByDepartmentId(departmentId);
 
-		// Print
-
-	}
-
-	@Test
-	public void findByCourseId() {
-		// Arrange
-
-		// Act
-
-		// Print
-
-	}
+        // Print
+        professors.forEach(System.out::println);
+    }
 
 	@Test
 	public void save_create() throws ParseException {
@@ -77,10 +77,10 @@ public class ProfessorRepositoryTest {
 		professor.setName("Rafael Duarte");
 
 		// Act
-		Professor prof = professorRepository.save(professor);
+		professor = professorRepository.save(professor);
 
 		// Print
-		System.out.println(prof);
+		System.out.println(professor);
 
 	}
 
@@ -92,26 +92,27 @@ public class ProfessorRepositoryTest {
 		professor.setName("Matheus Cruz Albernaz");
 
 		// Act
-		Professor prof = professorRepository.save(professor);
+		professor = professorRepository.save(professor);
 
 		// Print
-		System.out.println(prof);
+		System.out.println(professor);
 
 	}
 
 	@Test
 	public void deleteById() {
 		// Arrange
+		Long id = 1L;
 
 		// Act
-		professorRepository.deleteById(2L);
+		professorRepository.deleteById(id);
 
 	}
 
 	@Test
 	public void deleteAll() {
 		// Act
-		professorRepository.deleteAll();
+		professorRepository.deleteAllInBatch();
 
 	}
 }

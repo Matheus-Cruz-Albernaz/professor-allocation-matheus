@@ -2,8 +2,6 @@ package com.project.professor.allocation.repository;
 
 import com.project.professor.allocation.entity.Allocation;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -16,7 +14,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.util.List;
-import java.util.Optional;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
@@ -32,44 +29,48 @@ public class AllocationRepositoryTest {
 	@Test
 	public void findAll() {
 		// Act
-		List <Allocation> alloc = allocationRepository.findAll();
+		List<Allocation> alloc = allocationRepository.findAll();
 
 		// Print
-		System.out.println(alloc);
+		alloc.forEach(System.out::println);
 	}
 
 	@Test
 	public void findById() {
 		// Arrange
-		
+		Long id = 1L;
 
 		// Act
-		Optional <Allocation> optional = allocationRepository.findById(20L);
+		Allocation allocation = allocationRepository.findById(id).orElse(null);
 
 		// Print
-		Allocation alloc = optional.orElse(null);
-		System.out.println(alloc);		
+		System.out.println(allocation);
 
 	}
 
 	@Test
 	public void findByProfessorId() {
 		// Arrange
+		Long professorId = 1L;
 
 		// Act
+		List<Allocation> allocations = allocationRepository.findByProfessorId(professorId);
 
 		// Print
+		allocations.forEach(System.out::println);
 
 	}
 
 	@Test
 	public void findByCourseId() {
 		// Arrange
+		Long courseId = 1L;
 
 		// Act
+		List<Allocation> allocations = allocationRepository.findByCourseId(courseId);
 
 		// Print
-
+		allocations.forEach(System.out::println);
 	}
 
 	@Test
@@ -112,15 +113,16 @@ public class AllocationRepositoryTest {
 	@Test
 	public void deleteById() {
 		// Arrange
-
+		Long id = 1L;
+		
 		// Act
-		allocationRepository.deleteById(2L);
+		allocationRepository.deleteById(id);
 
 	}
 
 	@Test
 	public void deleteAll() {
 		// Act
-		allocationRepository.deleteAll();
+		allocationRepository.deleteAllInBatch();
 	}
 }

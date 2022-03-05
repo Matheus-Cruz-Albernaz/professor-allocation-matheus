@@ -1,9 +1,7 @@
 package com.project.professor.allocation.repository;
 
-import java.text.ParseException;
-import java.time.DayOfWeek;
+import java.text.ParseException; 
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 
-import com.project.professor.allocation.entity.Allocation;
 import com.project.professor.allocation.entity.Department;
 
 @DataJpaTest
@@ -31,41 +28,33 @@ public class DepartmentRepositoryTest {
 		List<Department> dep = departmentRepository.findAll();
 
 		// Print
-		System.out.println(dep);
+		dep.forEach(System.out::println);
 	}
 
 	@Test
 	public void findById() {
 		// Arrange
+		Long id = 1L;
 
 		// Act
-		Optional<Department> optional = departmentRepository.findById(2L);
+		Department department = departmentRepository.findById(id).orElse(null);
 
 		// Print
-		Department dep = optional.orElse(null);
-		System.out.println(dep);
+		System.out.println(department);
 
 	}
 
 	@Test
-	public void findByProfessorId() {
-		// Arrange
+    public void findByNameContainingIgnoreCase() {
+        // Arrange
+        String name = "Department";
 
-		// Act
+        // Act
+        List<Department> departments = departmentRepository.findByNameContainingIgnoreCase(name);
 
-		// Print
-
-	}
-
-	@Test
-	public void findByCourseId() {
-		// Arrange
-
-		// Act
-
-		// Print
-
-	}
+        // Print
+        departments.forEach(System.out::println);
+    }
 
 	@Test
 	public void save_create() throws ParseException {
@@ -74,10 +63,10 @@ public class DepartmentRepositoryTest {
 		department.setName("UniQualiti");
 
 		// Act
-		Department dep = departmentRepository.save(department);
+		department = departmentRepository.save(department);
 
 		// Print
-		System.out.println(dep);
+		System.out.println(department);
 
 	}
 
@@ -89,26 +78,27 @@ public class DepartmentRepositoryTest {
 		department.setName("Universidade Qualiti");
 
 		// Act
-		Department dep = departmentRepository.save(department);
+		department = departmentRepository.save(department);
 
 		// Print
-		System.out.println(dep);
+		System.out.println(department);
 
 	}
 
 	@Test
 	public void deleteById() {
 		// Arrange
+		Long id = 1L;
 
 		// Act
-		departmentRepository.deleteById(2L);
+		departmentRepository.deleteById(id);
 
 	}
 
 	@Test
 	public void deleteAll() {
 		// Act
-		departmentRepository.deleteAll();
+		departmentRepository.deleteAllInBatch();
 
 	}
 }
