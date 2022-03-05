@@ -23,10 +23,6 @@ public class Department {
 	
 	@Column(unique = true, nullable = false, name = "Nome")
 	private String name;
-	
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@OneToMany(mappedBy = "Departamento")
-	private List <Professor> professors;
 
 	public Long getId() {
 		return id;

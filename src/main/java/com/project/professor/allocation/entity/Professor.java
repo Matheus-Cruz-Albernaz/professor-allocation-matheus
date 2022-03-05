@@ -36,10 +36,6 @@ public class Professor {
 	@JoinColumn(name = "Department_id", updatable = false, insertable = false, nullable = false)
 	private Department depart;
 	
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@OneToMany(mappedBy = "Professor")
-	private List <Allocation> allocations;
-	
 	public Long getId() {
 		return id;
 	}

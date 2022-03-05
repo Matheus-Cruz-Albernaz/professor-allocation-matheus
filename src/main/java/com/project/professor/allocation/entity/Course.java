@@ -23,11 +23,7 @@ public class Course {
 	
 	@Column(unique = true, nullable = false, name = "Nome")
 	private String name;
-	
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@OneToMany(mappedBy = "Cursos")
-	private List <Allocation> allocations;
-	
+		
 	public Long getId() {
 		return id;
 	}
