@@ -2,8 +2,6 @@ package com.project.professor.allocation.repository;
 
 import com.project.professor.allocation.entity.Allocation;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -78,7 +76,7 @@ public class AllocationRepositoryTest {
 		Allocation allocation = new Allocation();
 		allocation.setDay(DayOfWeek.MONDAY);
 		allocation.setCourseId(1L);
-		allocation.setProfessorId(1L);
+		allocation.setProfessorId(7L);
 		allocation.setStart(sdf.parse("10:00-0300"));
 		allocation.setEnd(sdf.parse("13:00-0300"));
 

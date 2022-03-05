@@ -1,7 +1,6 @@
 package com.project.professor.allocation.repository;
 
 import java.text.ParseException;
-import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 
-import com.project.professor.allocation.entity.Allocation;
 import com.project.professor.allocation.entity.Department;
 
 @DataJpaTest

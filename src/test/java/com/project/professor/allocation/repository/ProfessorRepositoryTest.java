@@ -72,7 +72,7 @@ public class ProfessorRepositoryTest {
 	public void save_create() throws ParseException {
 		// Arrange
 		Professor professor = new Professor();
-		professor.setCpf("96573561203");
+		professor.setCpf("965.735.612-03");
 		professor.setDepartmentId(1L);
 		professor.setName("Rafael Duarte");
 
