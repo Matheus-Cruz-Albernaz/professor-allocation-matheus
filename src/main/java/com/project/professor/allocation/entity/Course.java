@@ -29,7 +29,7 @@ public class Course {
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@OneToMany(mappedBy = "Cursos")
+	@OneToMany(mappedBy = "course")
 	private List <Allocation> allocations;
 	
 	public Long getId() {

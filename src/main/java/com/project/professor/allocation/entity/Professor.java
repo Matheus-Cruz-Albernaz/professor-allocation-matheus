@@ -1,6 +1,6 @@
 package com.project.professor.allocation.entity;
 
-import java.util.List;
+import java.util.List; 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +15,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -46,7 +45,7 @@ public class Professor {
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@OneToMany(mappedBy = "Professor")
+	@OneToMany(mappedBy = "pro")
 	private List <Allocation> allocations;
 	
 	public Long getId() {

@@ -29,7 +29,7 @@ public class Department {
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@OneToMany(mappedBy = "Departamento")
+	@OneToMany(mappedBy = "depart")
 	private List <Professor> professors;
 
 	public Long getId() {
