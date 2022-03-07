@@ -48,7 +48,7 @@ public class CourseRepositoryTest {
 	@Test
 	public void findByNameContainingIgnoreCase() {
 		// Arrange
-		String name = "Course";
+		String name = "C";
 
 		// Act
 		List<Course> courses = courseRepository.findByNameContainingIgnoreCase(name);
