@@ -1,7 +1,6 @@
 package com.project.professor.allocation.repository;
 
 import java.text.ParseException;
-import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,8 +12,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 
-import com.project.professor.allocation.entity.Allocation;
-import com.project.professor.allocation.entity.Course;
 import com.project.professor.allocation.entity.Professor;
 
 @DataJpaTest
@@ -38,9 +35,10 @@ public class ProfessorRepositoryTest {
 	@Test
 	public void findById() {
 		// Arrange
+		Long id = 1L;
 
 		// Act
-		Optional<Professor> optional = professorRepository.findById(2L);
+		Optional<Professor> optional = professorRepository.findById(id);
 
 		// Print
 		Professor prof = optional.orElse(null);
@@ -49,22 +47,15 @@ public class ProfessorRepositoryTest {
 	}
 
 	@Test
-	public void findByProfessorId() {
+	public void findByDepartmentId() {
 		// Arrange
+		Long courseId = 2L;
 
 		// Act
+		List<Professor> optional = professorRepository.findByDepartmentId(courseId);
 
 		// Print
-
-	}
-
-	@Test
-	public void findByCourseId() {
-		// Arrange
-
-		// Act
-
-		// Print
+		System.out.println(optional);
 
 	}
 
@@ -102,16 +93,17 @@ public class ProfessorRepositoryTest {
 	@Test
 	public void deleteById() {
 		// Arrange
+		Long id = 1L;
 
 		// Act
-		professorRepository.deleteById(2L);
+		professorRepository.deleteById(id);
 
 	}
 
 	@Test
 	public void deleteAll() {
 		// Act
-		professorRepository.deleteAll();
+		professorRepository.deleteAllInBatch();
 
 	}
 }

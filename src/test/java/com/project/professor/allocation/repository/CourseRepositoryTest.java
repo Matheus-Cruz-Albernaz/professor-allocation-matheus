@@ -36,33 +36,14 @@ public class CourseRepositoryTest {
 	@Test
 	public void findById() {
 		// Arrange
+		Long id = 1L;
 
 		// Act
-		Optional<Course> optional = courseRepository.findById(2L);
+		Optional<Course> optional = courseRepository.findById(id);
 
 		// Print
 		Course course = optional.orElse(null);
 		System.out.println(course);
-
-	}
-
-	@Test
-	public void findByProfessorId() {
-		// Arrange
-
-		// Act
-
-		// Print
-
-	}
-
-	@Test
-	public void findByCourseId() {
-		// Arrange
-
-		// Act
-
-		// Print
 
 	}
 
@@ -97,16 +78,17 @@ public class CourseRepositoryTest {
 	@Test
 	public void deleteById() {
 		// Arrange
+		Long id = 1L;
 
 		// Act
-		courseRepository.deleteById(2L);
+		courseRepository.deleteById(id);
 
 	}
 
 	@Test
 	public void deleteAll() {
 		// Act
-		courseRepository.deleteAll();
+		courseRepository.deleteAllInBatch();
 
 	}
 }
