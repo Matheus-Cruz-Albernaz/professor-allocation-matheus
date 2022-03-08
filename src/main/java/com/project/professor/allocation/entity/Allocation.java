@@ -142,8 +142,6 @@ public class Allocation {
 						   + "start=" + start + ","
 						   + "end=" + end + ","
 						   + "courseId=" + courseId
-						   + ", professorId=" + professorId + ","
-						   + "course=" + course + ""
-						   + "professor=" + pro + "]";
+						   + "]";
 	}	
 }

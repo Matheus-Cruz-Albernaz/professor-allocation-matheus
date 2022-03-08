@@ -103,7 +103,6 @@ public class Professor {
 	                ", name='" + name + '\'' +
 	                ", cpf='" + cpf + '\'' +
 	                ", departmentId=" + departmentId +
-	                ", department=" + depart +
 	                '}';
 	    }
 }
