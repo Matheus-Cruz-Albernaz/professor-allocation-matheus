@@ -48,7 +48,7 @@ public class AllocationService {
 	
 	public List <Allocation> findByProfessorId(Long professorId) {
 
-		return allocationRepository.findByCourseId(professorId);
+		return allocationRepository.findByProfessorId(professorId);
 	}
 
 	// CRUD Criar

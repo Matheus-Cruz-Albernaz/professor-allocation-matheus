@@ -29,7 +29,7 @@ public class Department {
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@OneToMany(mappedBy = "depart")
+	@OneToMany(mappedBy = "department")
 	private List <Professor> professors;
 
 	public Long getId() {
@@ -57,8 +57,10 @@ public class Department {
 	}
 
 	@Override
-	public String toString() {
-		return "Department [id=" + id +
-						   ", name=" + name + "]";
-	}
+    public String toString() {
+        return "Department{" +
+                "id=" + id +
+                "name=" + name +
+                '}';
+    }
 }

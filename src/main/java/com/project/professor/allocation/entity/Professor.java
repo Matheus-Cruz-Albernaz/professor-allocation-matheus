@@ -41,11 +41,11 @@ public class Professor {
 	@JsonIgnoreProperties({"professors"})
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "Department_id", updatable = false, insertable = false, nullable = false)
-	private Department depart;
+	private Department department;
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@OneToMany(mappedBy = "pro")
+	@OneToMany(mappedBy = "professor")
 	private List <Allocation> allocations;
 	
 	public Long getId() {
@@ -81,11 +81,11 @@ public class Professor {
 	}
 
 	public Department getDepart() {
-		return depart;
+		return department;
 	}
 
-	public void setDepart(Department depart) {
-		this.depart = depart;
+	public void setDepart(Department department) {
+		this.department = department;
 	}
 
 	public List<Allocation> getAllocations() {
@@ -96,13 +96,13 @@ public class Professor {
 		this.allocations = allocations;
 	}
 	
-	 @Override
-	    public String toString() {
-	        return "Professor{" +
-	                "id=" + id +
-	                ", name='" + name + '\'' +
-	                ", cpf='" + cpf + '\'' +
-	                ", departmentId=" + departmentId +
-	                '}';
-	    }
+	@Override
+    public String toString() {
+        return "Professor{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", department=" + department +
+                '}';
+    }
 }

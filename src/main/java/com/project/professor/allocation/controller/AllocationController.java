@@ -50,8 +50,34 @@ public class AllocationController {
 		}
 	}
 	
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(path = "/course/{course_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity <List<Allocation>> findByCourseId(@PathVariable(name = "course_id") Long id) {
+
+		List <Allocation> allocation = allocationService.findByCourseId(id);
+		
+		if (allocation != null) {
+			return new ResponseEntity<>(allocation, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);		
+		}
+	}
+	
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(path = "/professor/{professor_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity <List<Allocation>> findByProfessorId(@PathVariable(name = "professor_id") Long id) {
+
+		List <Allocation> allocation = allocationService.findByProfessorId(id);
+		
+		if (allocation != null) {
+			return new ResponseEntity<>(allocation, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);		
+		}
+	}
+	
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping(path = "/allocations", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Allocation> create(@RequestBody Allocation allocation) {
 		
 		try {
@@ -63,7 +89,7 @@ public class AllocationController {
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
-	@PutMapping(path = "/allocations/{allocation_id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/{allocation_id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Allocation> update(@PathVariable(name = "allocation_id") Long id,@RequestBody Allocation allocation) {
 		
 		allocation.setId(id);
@@ -77,12 +103,12 @@ public class AllocationController {
 			}
 			
 		} catch (Exception e){
-			return null;
+			return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
 		}	
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping(path = "/allocations/{allocation_id}")
+	@DeleteMapping(path = "/{allocation_id}")
 	public ResponseEntity<Void> deleteById (@PathVariable (name = "allocation_id") Long id) {
 		
 		allocationService.deleteById(id);
@@ -91,7 +117,7 @@ public class AllocationController {
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping(path = "/allocations")
+	@DeleteMapping
 	public ResponseEntity<Void> deleteAll() {
 		
 		allocationService.deleteAll();

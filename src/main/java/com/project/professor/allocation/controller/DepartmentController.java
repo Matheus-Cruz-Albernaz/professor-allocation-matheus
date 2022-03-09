@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +20,7 @@ import com.project.professor.allocation.entity.Department;
 import com.project.professor.allocation.service.DepartmentService;
 
 @RestController
+@RequestMapping(path = "departments")
 public class DepartmentController {
 
 	private final DepartmentService departmentService;
@@ -28,15 +31,15 @@ public class DepartmentController {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(path = "/departments", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Department>> findAll() {
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Department>> findAll(@RequestParam(name = "name", required = false) String name) {
 
-		List<Department> departments = departmentService.findAll();
+		List<Department> departments = departmentService.findAll(name);
 		return new ResponseEntity<>(departments, HttpStatus.OK);
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(path = "/departments/{department_id}")
+	@GetMapping(path = "/{department_id}")
 	public ResponseEntity<Department> findById(@PathVariable(name = "department_id") Long id) {
 
 		Department department = departmentService.findById(id);
@@ -49,7 +52,7 @@ public class DepartmentController {
 	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping(path = "/departments", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Department> create(@RequestBody Department department) {
 		
 		try {
@@ -61,7 +64,7 @@ public class DepartmentController {
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
-	@PutMapping(path = "/departments/{department_id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/{department_id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Department> update(@PathVariable(name = "department_id") Long id,@RequestBody Department department) {
 		
 		department.setId(id);
@@ -75,12 +78,12 @@ public class DepartmentController {
 			}
 			
 		} catch (Exception e){
-			return null;
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}	
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping(path = "/departments/{department_id}")
+	@DeleteMapping(path = "/{department_id}")
 	public ResponseEntity<Void> deleteById (@PathVariable (name = "department_id") Long id) {
 		
 		departmentService.deleteById(id);
@@ -89,7 +92,7 @@ public class DepartmentController {
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping(path = "/departments")
+	@DeleteMapping
 	public ResponseEntity<Void> deleteAll() {
 		
 		departmentService.deleteAll();

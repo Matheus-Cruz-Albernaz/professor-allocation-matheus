@@ -69,7 +69,7 @@ public class Allocation {
 	@JsonIgnoreProperties({"allocations"})
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "Professor_id", updatable = false, insertable = false, nullable = false)
-	private Professor pro;
+	private Professor professor;
 	
 	public Long getId() {
 		return id;
@@ -128,20 +128,22 @@ public class Allocation {
 	}
 
 	public Professor getPro() {
-		return pro;
+		return professor;
 	}
 
-	public void setPro(Professor pro) {
-		this.pro = pro;
+	public void setPro(Professor professor) {
+		this.professor = professor;
 	}
 
 	@Override
-	public String toString() {
-		return "Allocation [id=" + id + ","
-						   + "day=" + day + ","
-						   + "start=" + start + ","
-						   + "end=" + end + ","
-						   + "courseId=" + courseId
-						   + "]";
-	}	
+    public String toString() {
+        return "Allocation{" +
+                "id=" + id +
+                ", dayOfWeek=" + day +
+                ", startHour=" + start +
+                ", endHour=" + end +
+                ", professor=" + professor +
+                ", course=" + course +
+                '}';
+    }	
 }
