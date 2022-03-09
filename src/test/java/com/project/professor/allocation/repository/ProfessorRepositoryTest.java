@@ -73,7 +73,7 @@ public class ProfessorRepositoryTest {
 		// Arrange
 		Professor professor = new Professor();
 		professor.setCpf("96573561203");
-		professor.setDepartmentId(1L);
+		professor.setDepartmentId(6L);
 		professor.setName("Rafael Duarte");
 
 		// Act
@@ -88,7 +88,8 @@ public class ProfessorRepositoryTest {
 	public void save_update() throws ParseException {
 		// Arrange
 		Professor professor = new Professor();
-		professor.setId(2L);
+		professor.setCpf("96573561203");
+		professor.setDepartmentId(6L);
 		professor.setName("Matheus Cruz Albernaz");
 
 		// Act

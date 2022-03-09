@@ -38,7 +38,7 @@ public class AllocationRepositoryTest {
 	@Test
 	public void findById() {
 		// Arrange
-		Long id = 1L;
+		Long id = 24L;
 
 		// Act
 		Allocation allocation = allocationRepository.findById(id).orElse(null);
@@ -64,7 +64,7 @@ public class AllocationRepositoryTest {
 	@Test
 	public void findByCourseId() {
 		// Arrange
-		Long courseId = 1L;
+		Long courseId = 2L;
 
 		// Act
 		List<Allocation> allocations = allocationRepository.findByCourseId(courseId);
@@ -77,7 +77,7 @@ public class AllocationRepositoryTest {
 	public void save_create() throws ParseException {
 		// Arrange
 		Allocation allocation = new Allocation();
-		allocation.setDay(DayOfWeek.MONDAY);
+		allocation.setDay(DayOfWeek.THURSDAY);
 		allocation.setCourseId(1L);
 		allocation.setProfessorId(1L);
 		allocation.setStart(sdf.parse("10:00-0300"));
@@ -95,7 +95,7 @@ public class AllocationRepositoryTest {
 	public void save_update() throws ParseException {
 		// Arrange
 		Allocation allocation = new Allocation();
-		allocation.setId(1L);
+		allocation.setId(25L);
 		allocation.setDay(DayOfWeek.FRIDAY);
 		allocation.setCourseId(1L);
 		allocation.setProfessorId(1L);
@@ -113,7 +113,7 @@ public class AllocationRepositoryTest {
 	@Test
 	public void deleteById() {
 		// Arrange
-		Long id = 1L;
+		Long id = 26L;
 		
 		// Act
 		allocationRepository.deleteById(id);

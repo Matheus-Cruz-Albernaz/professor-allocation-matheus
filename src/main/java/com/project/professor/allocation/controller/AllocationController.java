@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +19,7 @@ import com.project.professor.allocation.entity.Allocation;
 import com.project.professor.allocation.service.AllocationService;
 
 @RestController
+@RequestMapping(path = "/allocations")
 public class AllocationController {
 
 	private final AllocationService allocationService;
@@ -28,7 +30,7 @@ public class AllocationController {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(path = "/allocations", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping( produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Allocation>> findAll() {
 
 		List<Allocation> allocations = allocationService.findAll();
@@ -36,7 +38,7 @@ public class AllocationController {
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(path = "/allocations/{allocation_id}")
+	@GetMapping(path = "/{allocation_id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Allocation> findById(@PathVariable(name = "allocation_id") Long id) {
 
 		Allocation allocation = allocationService.findById(id);

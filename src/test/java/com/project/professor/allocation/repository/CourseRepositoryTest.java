@@ -35,7 +35,7 @@ public class CourseRepositoryTest {
 	@Test
 	public void findById() {
 		// Arrange
-		Long id = 1L;
+		Long id = 5L;
 
 		// Act
 		Course course = courseRepository.findById(id).orElse(null);
@@ -48,7 +48,7 @@ public class CourseRepositoryTest {
 	@Test
 	public void findByNameContainingIgnoreCase() {
 		// Arrange
-		String name = "C";
+		String name = "house";
 
 		// Act
 		List<Course> courses = courseRepository.findByNameContainingIgnoreCase(name);
@@ -74,7 +74,7 @@ public class CourseRepositoryTest {
 	public void save_update() throws ParseException {
 		// Arrange
 		Course course = new Course();
-		course.setId(2L);
+		course.setId(7L);
 		course.setName("Deep Code 1");
 
 		// Act
@@ -88,7 +88,7 @@ public class CourseRepositoryTest {
 	@Test
 	public void deleteById() {
 		// Arrange
-		Long id = 1L;
+		Long id = 6L;
 		
 		// Act
 		courseRepository.deleteById(id);

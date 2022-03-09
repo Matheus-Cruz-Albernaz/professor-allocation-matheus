@@ -6,24 +6,30 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.project.professor.allocation.entity.Department;
+import com.project.professor.allocation.entity.Professor;
 import com.project.professor.allocation.repository.DepartmentRepository;
+import com.project.professor.allocation.repository.ProfessorRepository;
 
 @Service
 public class DepartmentService {
 
 	private final DepartmentRepository departmentRepository;
+	private final ProfessorRepository professorRepository;
 
-	public DepartmentService(DepartmentRepository departmentRepository) {
+	public DepartmentService(DepartmentRepository departmentRepository, ProfessorRepository professorRepository) {
 		super();
 		this.departmentRepository = departmentRepository;
+		this.professorRepository = professorRepository;
 	}
 
 	// CRUD Ler todos
-	public List<Department> findAll() {
-
-		List<Department> departments = departmentRepository.findAll();
-		return departments;
-
+	public List<Department> findAll(String name) {
+		
+		if (name == null) {
+			return departmentRepository.findAll();
+		} else {
+			return departmentRepository.findByNameContainingIgnoreCase(name);
+		}
 	}
 
 	// CRUD Ler Id
@@ -56,16 +62,18 @@ public class DepartmentService {
 	}
 
 	private Department saveInternal(Department department) {
+        department = departmentRepository.save(department);
 
-		Department depNew = departmentRepository.save(department);
-		return depNew;
+        List<Professor> professors = professorRepository.findByDepartmentId(department.getId());
+        department.setProfessors(professors);
 
-	}
+        return department;
+    }
 
 	// CRUD Deletar pelo Id
 	public void deleteById(Long id) {
 
-		if (departmentRepository.existsById(id)) {
+		if (id != null && departmentRepository.existsById(id)) {
 			departmentRepository.deleteById(id);
 		}
 	}

@@ -6,16 +6,22 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.project.professor.allocation.entity.Allocation;
+import com.project.professor.allocation.entity.Course;
+import com.project.professor.allocation.entity.Professor;
 import com.project.professor.allocation.repository.AllocationRepository;
 
 @Service
 public class AllocationService {
 
 	private final AllocationRepository allocationRepository;
+	private final CourseService courseService;
+	private final ProfessorService professorService;
 
-	public AllocationService(AllocationRepository allocationRepository) {
+	public AllocationService(AllocationRepository allocationRepository, CourseService courseService, ProfessorService professorService) {
 		super();
 		this.allocationRepository = allocationRepository;
+		this.courseService = courseService;
+		this.professorService = professorService;
 	}
 
 	// CRUD Ler todos
@@ -33,6 +39,16 @@ public class AllocationService {
 		Allocation allocation = optional.orElse(null);
 		return allocation;
 
+	}
+	
+	public List <Allocation> findByCourseId(Long courseId) {
+
+		return allocationRepository.findByCourseId(courseId);
+	}
+	
+	public List <Allocation> findByProfessorId(Long professorId) {
+
+		return allocationRepository.findByCourseId(professorId);
 	}
 
 	// CRUD Criar
@@ -56,20 +72,25 @@ public class AllocationService {
 	}
 	
 	private Allocation saveInternal(Allocation allocation) {
-		
-		if (hasCollision(allocation)) {
-			throw new RuntimeException();
-		} else {
-		Allocation allocationNew = allocationRepository.save(allocation);
-		return allocationNew;
-		}
-		
-	}
+        if (!isEndHourGreaterThanStartHour(allocation) || hasCollision(allocation)) {
+            throw new RuntimeException();
+        } else {
+            allocation = allocationRepository.save(allocation);
+
+            Professor professor = professorService.findById(allocation.getProfessorId());
+            allocation.setPro(professor);
+
+            Course course = courseService.findById(allocation.getCourseId());
+            allocation.setCourse(course);
+
+            return allocation;
+        }
+    }
 
 	// CRUD Deletar pelo Id
 	public void deleteById(Long id) {
 		
-		if (allocationRepository.existsById(id)) {
+		if (id != null && allocationRepository.existsById(id)) {
 			allocationRepository.deleteById(id);
 		} 
 	}
@@ -102,4 +123,9 @@ public class AllocationService {
 				&& currentAllocation.getStart().compareTo(newAllocation.getEnd()) < 0
 				&& newAllocation.getStart().compareTo(currentAllocation.getEnd()) < 0;
 	}
+	
+	boolean isEndHourGreaterThanStartHour(Allocation allocation) {
+        return allocation != null && allocation.getStart() != null && allocation.getEnd() != null
+                && allocation.getEnd().compareTo(allocation.getStart()) > 0;
+    }
 }

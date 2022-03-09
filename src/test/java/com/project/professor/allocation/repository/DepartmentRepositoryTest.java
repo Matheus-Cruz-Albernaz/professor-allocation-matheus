@@ -47,7 +47,7 @@ public class DepartmentRepositoryTest {
 	@Test
     public void findByNameContainingIgnoreCase() {
         // Arrange
-        String name = "Department";
+        String name = "ud";
 
         // Act
         List<Department> departments = departmentRepository.findByNameContainingIgnoreCase(name);
@@ -60,7 +60,7 @@ public class DepartmentRepositoryTest {
 	public void save_create() throws ParseException {
 		// Arrange
 		Department department = new Department();
-		department.setName("UniQualiti");
+		department.setName("Saúde");
 
 		// Act
 		department = departmentRepository.save(department);
@@ -74,7 +74,7 @@ public class DepartmentRepositoryTest {
 	public void save_update() throws ParseException {
 		// Arrange
 		Department department = new Department();
-		department.setId(3L);
+		department.setId(9L);
 		department.setName("Universidade Qualiti");
 
 		// Act

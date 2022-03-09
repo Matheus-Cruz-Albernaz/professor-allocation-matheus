@@ -1,7 +1,6 @@
 package com.project.professor.allocation.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.ParseException; 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -15,15 +14,25 @@ import com.project.professor.allocation.entity.Department;
 @TestPropertySource(locations = "classpath:department.properties")
 public class DepartmentServiceTest {
 
-	SimpleDateFormat sdf = new SimpleDateFormat("HH:mmZ");
-
 	@Autowired
 	DepartmentService departmentService;
 	
 	@Test
 	public void findAll() {
 		// Act
-		List<Department> dep = departmentService.findAll();
+		List<Department> dep = departmentService.findAll(null);
+
+		// Print
+		dep.forEach(System.out::println);
+	}
+	
+	@Test
+	public void findAllByName() {
+		// Arrange
+		String name = "department";
+		
+		// Act
+		List<Department> dep = departmentService.findAll(name);
 
 		// Print
 		dep.forEach(System.out::println);

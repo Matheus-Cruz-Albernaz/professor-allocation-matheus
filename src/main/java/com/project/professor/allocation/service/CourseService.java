@@ -5,25 +5,31 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.project.professor.allocation.entity.Allocation;
 import com.project.professor.allocation.entity.Course;
+import com.project.professor.allocation.repository.AllocationRepository;
 import com.project.professor.allocation.repository.CourseRepository;
 
 @Service
 public class CourseService {
 
 	private final CourseRepository courseRepository;
+	private final AllocationRepository allocationRepository;
 
-	public CourseService(CourseRepository courseRepository) {
+	public CourseService(CourseRepository courseRepository, AllocationRepository allocationRepository) {
 		super();
 		this.courseRepository = courseRepository;
+		this.allocationRepository = allocationRepository;
 	}
 
 	// CRUD Ler todos
-	public List<Course> findAll() {
-
-		List<Course> courses = courseRepository.findAll();
-		return courses;
-
+	public List<Course> findAll(String name) {
+		
+		if (name == null) {
+			return courseRepository.findAll();	
+		} else {
+			return courseRepository.findByNameContainingIgnoreCase(name);
+		}
 	}
 
 	// CRUD Ler Id
@@ -56,16 +62,18 @@ public class CourseService {
 	}
 
 	private Course saveInternal(Course course) {
+        course = courseRepository.save(course);
 
-		Course courseNew = courseRepository.save(course);
-		return courseNew;
+        List<Allocation> allocations = allocationRepository.findByCourseId(course.getId());
+        course.setAllocations(allocations);
 
-	}
+        return course;
+    }
 
 	// CRUD Deletar pelo Id
 	public void deleteById(Long id) {
 
-		if (courseRepository.existsById(id)) {
+		if (id != null && courseRepository.existsById(id)) {
 			courseRepository.deleteById(id);
 		}
 	}
