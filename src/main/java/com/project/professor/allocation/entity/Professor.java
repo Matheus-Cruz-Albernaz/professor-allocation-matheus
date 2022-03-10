@@ -1,6 +1,6 @@
 package com.project.professor.allocation.entity;
 
-import java.util.List; 
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,70 +21,70 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name = "Professor")
 public class Professor {
-	
+
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(nullable = false, name = "Nome")
 	private String name;
-	
+
 	@Column(length = 14, unique = true, nullable = false, name = "CPF")
 	private String cpf;
-	
+
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(nullable = false, name = "Department_id")
 	private Long departmentId;
-	
+
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	@JsonIgnoreProperties({"professors"})
+	@JsonIgnoreProperties({ "professors" })
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "Department_id", updatable = false, insertable = false, nullable = false)
 	private Department department;
-	
+
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@OneToMany(mappedBy = "professor")
-	private List <Allocation> allocations;
-	
+	private List<Allocation> allocations;
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getCpf() {
 		return cpf;
 	}
-	
+
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	
+
 	public Long getDepartmentId() {
 		return departmentId;
 	}
-	
+
 	public void setDepartmentId(Long departmentId) {
 		this.departmentId = departmentId;
 	}
 
-	public Department getDepart() {
+	public Department getDepartment() {
 		return department;
 	}
 
-	public void setDepart(Department department) {
+	public void setDepartment(Department department) {
 		this.department = department;
 	}
 
@@ -95,15 +95,10 @@ public class Professor {
 	public void setAllocations(List<Allocation> allocations) {
 		this.allocations = allocations;
 	}
-	
+
 	@Override
-    public String toString() {
-        return "Professor{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", departmentId=" + departmentId +
-                ", department=" + department +
-                '}';
-    }
+	public String toString() {
+		return "Professor{" + "id=" + id + ", name='" + name + '\'' + ", cpf='" + cpf + '\'' + ", departmentId="
+				+ departmentId + ", department=" + department + '}';
+	}
 }

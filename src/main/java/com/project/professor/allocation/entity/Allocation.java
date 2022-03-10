@@ -29,16 +29,16 @@ import io.swagger.annotations.ApiModelProperty;
 @Entity
 @Table(name = "Alocação")
 public class Allocation {
-	
+
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "Dia", nullable = false)
 	private DayOfWeek day;
-	
+
 	@ApiModelProperty(example = "10:00-0300")
 	@JsonFormat(pattern = "HH:mmZ")
 	@JsonSerialize(using = DateSerializer.class)
@@ -46,7 +46,7 @@ public class Allocation {
 	@Column(name = "Início", nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date start;
-	
+
 	@ApiModelProperty(example = "12:00-0300")
 	@JsonFormat(pattern = "HH:mmZ")
 	@JsonSerialize(using = DateSerializer.class)
@@ -54,27 +54,27 @@ public class Allocation {
 	@Column(name = "Término", nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date end;
-	
+
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(nullable = false, name = "Course_id")
 	private Long courseId;
-	
+
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(nullable = false, name = "Professor_id")
 	private Long professorId;
-	
+
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	@JsonIgnoreProperties({"allocations"})
+	@JsonIgnoreProperties({ "allocations" })
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "Course_id", updatable = false, insertable = false, nullable = false)
 	private Course course;
-	
+
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	@JsonIgnoreProperties({"allocations"})
+	@JsonIgnoreProperties({ "allocations" })
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "Professor_id", updatable = false, insertable = false, nullable = false)
 	private Professor professor;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -131,25 +131,17 @@ public class Allocation {
 		this.course = course;
 	}
 
-	public Professor getPro() {
+	public Professor getProfessor() {
 		return professor;
 	}
 
-	public void setPro(Professor professor) {
+	public void setProfessor(Professor professor) {
 		this.professor = professor;
 	}
 
 	@Override
-    public String toString() {
-        return "Allocation{" +
-                "id=" + id +
-                ", day=" + day +
-                ", start=" + start +
-                ", end=" + end +
-                ", courseId=" + courseId +
-                ", professorId=" + professorId +
-                ", course=" + course +
-                ", professor=" + professor +
-                '}';
-    }
+	public String toString() {
+		return "Allocation{" + "id=" + id + ", day=" + day + ", start=" + start + ", end=" + end + ", courseId="
+				+ courseId + ", professorId=" + professorId + ", course=" + course + ", professor=" + professor + '}';
+	}
 }
