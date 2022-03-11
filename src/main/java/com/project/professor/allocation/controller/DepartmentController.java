@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.professor.allocation.entity.Department;
 import com.project.professor.allocation.service.DepartmentService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 @RequestMapping(path = "departments")
 public class DepartmentController {
@@ -29,7 +33,11 @@ public class DepartmentController {
 		super();
 		this.departmentService = departmentService;
 	}
-
+	
+	@ApiOperation(value = "Find all departments")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK")
+    })
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Department>> findAll(@RequestParam(name = "name", required = false) String name) {
@@ -38,6 +46,12 @@ public class DepartmentController {
 		return new ResponseEntity<>(departments, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "Find a department by id")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Not Found")
+    })
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(path = "/{department_id}")
 	public ResponseEntity<Department> findById(@PathVariable(name = "department_id") Long id) {
@@ -51,6 +65,11 @@ public class DepartmentController {
 		}
 	}
 	
+	@ApiOperation(value = "Create a department")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Created"),
+            @ApiResponse(code = 400, message = "Bad Request")
+    })
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Department> create(@RequestBody Department department) {
@@ -63,6 +82,12 @@ public class DepartmentController {
 		}
 	}
 	
+	@ApiOperation(value = "Update a department")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Not Found")
+    })
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping(path = "/{department_id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Department> update(@PathVariable(name = "department_id") Long id,@RequestBody Department department) {
@@ -82,6 +107,10 @@ public class DepartmentController {
 		}	
 	}
 	
+	@ApiOperation(value = "Delete a department")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "No Content")
+    })
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping(path = "/{department_id}")
 	public ResponseEntity<Void> deleteById (@PathVariable (name = "department_id") Long id) {
@@ -91,6 +120,10 @@ public class DepartmentController {
 		
 	}
 	
+	@ApiOperation(value = "Delete all departments")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "No Content")
+    })
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping
 	public ResponseEntity<Void> deleteAll() {
