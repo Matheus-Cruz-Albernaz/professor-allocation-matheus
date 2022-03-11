@@ -64,7 +64,7 @@ public class AllocationController {
 		}
 	}
 	
-	@ApiOperation(value = "Find allocations by professor")
+	@ApiOperation(value = "Find allocations by course")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad Request")
