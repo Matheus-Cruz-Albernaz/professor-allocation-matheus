@@ -50,7 +50,7 @@ public class AllocationService {
 
 		return allocationRepository.findByProfessorId(professorId);
 	}
-
+	
 	// CRUD Criar
 	public Allocation create(Allocation allocation) {
 

@@ -1,6 +1,6 @@
 package com.project.professor.allocation.repository;
 
-import com.project.professor.allocation.entity.Allocation;
+import com.project.professor.allocation.entity.Allocation; 
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
